@@ -1,16 +1,30 @@
-# cielo_movil
+#  Cielo Móvil
 
-A new Flutter project.
+**Cielo Móvil** es una app educativa que permite observar el cielo estrellado según la ubicación y orientación del celular.  
+Fue desarrollada como prototipo funcional para el curso *Programación de Dispositivos Móviles PDS2-2501*.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+##  Funcionalidades
 
-A few resources to get you started if this is your first Flutter project:
+-  Muestra ubicación GPS del usuario
+-  Detecta orientación del celular con sensores
+-  Visualiza el cielo estrellado en tiempo real
+-  Permite registrar observaciones astronómicas (SQLite)
+-  Incluye pantalla de preferencias personalizables
+-  Envío de valoración con preguntas cargadas desde JSON
+-  Tema oscuro y color favorito aplicables automáticamente
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##  Navegación
+
+- **Splash** → Home  
+- **Home** → Cielo Estrellado / Preferencias / Observaciones / Acerca de  
+- **Drawer lateral** para moverse entre secciones
+
+---
+
+##  Capturas de pantalla
+
+
