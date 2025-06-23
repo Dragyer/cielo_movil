@@ -61,6 +61,7 @@ class _AboutScreenState extends State<AboutScreen> {
     } catch (e) {
       if (context.mounted) {
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (_) => AlertDialog(
             title: Text('No se pudo abrir la app de correo'),
