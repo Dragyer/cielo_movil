@@ -4,7 +4,10 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 
 class SkyViewScreen extends StatefulWidget {
+  const SkyViewScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SkyViewScreenState createState() => _SkyViewScreenState();
 }
 
@@ -16,6 +19,7 @@ class _SkyViewScreenState extends State<SkyViewScreen> {
   @override
   void initState() {
     super.initState();
+    // ignore: deprecated_member_use
     _gyroscopeSubscription = gyroscopeEvents.listen((event) {
       setState(() {
         orientation = getDirectionFromGyroscope(event);

@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesScreen extends StatefulWidget {
+  const PreferencesScreen({super.key});
+
   @override
   _PreferencesScreenState createState() => _PreferencesScreenState();
 }
@@ -65,8 +69,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
               },
               items: colors
                   .map((color) => DropdownMenuItem<String>(
-                        child: Text(color),
                         value: color,
+                        child: Text(color),
                       ))
                   .toList(),
             ),
@@ -75,6 +79,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
               child: Text('Guardar preferencias'),
               onPressed: () async {
                 await savePreferences();
+                // ignore: use_build_context_synchronously
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Preferencias guardadas')));
               },
             ),

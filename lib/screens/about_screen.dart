@@ -4,7 +4,10 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
+  const AboutScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _AboutScreenState createState() => _AboutScreenState();
 }
 
@@ -34,18 +37,19 @@ class _AboutScreenState extends State<AboutScreen> {
     final body = preguntas.asMap().entries.map((e) {
       final idx = e.key;
       final texto = e.value;
-      return '${texto}\nRespuesta: ${respuestas['pregunta_$idx']} estrellas\n';
+      return '$texto\nRespuesta: ${respuestas['pregunta_$idx']} estrellas\n';
     }).join('\n');
 
     final Uri emailUri = Uri(
       scheme: 'mailto',
-      path: 'daniel@email.com',
+      path: 'felipegallitoandres@gmail.com',
       query: Uri.encodeFull('subject=Opinión sobre Cielo Móvil&body=$body'),
     );
 
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
     } else {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('No se pudo abrir la app de correo.')),
       );
@@ -74,6 +78,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController nombreController = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: Text('Acerca de')),
       body: Padding(
@@ -81,11 +86,19 @@ class _AboutScreenState extends State<AboutScreen> {
         child: ListView(
           children: [
             Text(
-              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Daniel Arias\nContacto: daniel@email.com',
+              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Felipe Pérez\nContacto: felipegallitoandres@gmail.com',
               style: TextStyle(fontSize: 16),
             ),
             Divider(height: 30),
             Text('⭐ Valora tu experiencia:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            TextField(
+              controller: nombreController,
+              decoration: InputDecoration(
+                labelText: 'Tu nombre o identificación',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
             ...List.generate(preguntas.length, (i) => buildPregunta(i)),
             SizedBox(height: 20),
             ElevatedButton.icon(

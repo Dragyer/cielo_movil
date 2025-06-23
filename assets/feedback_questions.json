@@ -1,0 +1,22 @@
+{
+  "usabilidad": [
+    {
+      "titulo": "¿Qué tan fácil fue navegar a través de la aplicación?"
+    },
+    {
+      "titulo": "¿Pudiste completar tus tareas sin problemas?"
+    },
+    {
+      "titulo": "¿Cómo calificas el diseño y claridad de la interfaz?"
+    },
+    {
+      "titulo": "¿El contenido de la aplicación fue útil para ti?"
+    },
+    {
+      "titulo": "¿El contenido cumplió tus expectativas?"
+    },
+    {
+      "titulo": "¿Recomendarías esta aplicación a alguien más?"
+    }
+  ]
+}
