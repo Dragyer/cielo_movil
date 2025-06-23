@@ -30,6 +30,16 @@ Fue desarrollada como prototipo funcional para el curso *Programación de Dispos
 https://drive.google.com/file/d/1eUxmzS_v0eJ8fHe4kvGaNIE9vExqTfAA/view?usp=sharing
 
 ---
+
+## Diagrama de Flujo
+
+(imagenes/Diamgrama.jpg)
+
+---
 ##  Capturas de pantalla
 
+(imagenes/1.png)
 
+(imagenes/2.png)
+
+(imagenes/3.png)
