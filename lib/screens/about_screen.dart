@@ -7,11 +7,11 @@ class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AboutScreenState createState() => _AboutScreenState();
+  State<AboutScreen> createState() => _AboutScreenState();
 }
 
 class _AboutScreenState extends State<AboutScreen> {
+  final TextEditingController nombreController = TextEditingController();
   List<String> preguntas = [];
   Map<String, int> respuestas = {};
 
@@ -22,7 +22,8 @@ class _AboutScreenState extends State<AboutScreen> {
   }
 
   Future<void> cargarPreguntas() async {
-    final String jsonStr = await rootBundle.loadString('assets/feedback_questions.json');
+    final String jsonStr =
+        await rootBundle.loadString('assets/feedback_questions.json');
     final Map<String, dynamic> jsonData = json.decode(jsonStr);
 
     setState(() {
@@ -34,25 +35,52 @@ class _AboutScreenState extends State<AboutScreen> {
   }
 
   Future<void> enviarCorreo() async {
-    final body = preguntas.asMap().entries.map((e) {
-      final idx = e.key;
-      final texto = e.value;
-      return '$texto\nRespuesta: ${respuestas['pregunta_$idx']} estrellas\n';
-    }).join('\n');
+    final body = "Nombre: ${nombreController.text}\n\n${preguntas.asMap().entries.map((e) {
+          final idx = e.key;
+          final texto = e.value;
+          return '$texto\nRespuesta: ${respuestas['pregunta_$idx']} estrellas\n';
+        }).join('\n')}";
 
-    final Uri emailUri = Uri(
+    final Uri gmailUri = Uri.parse(
+        "googlegmail:///co?to=daniel@email.com&subject=Opinión sobre Cielo Móvil&body=${Uri.encodeComponent(body)}");
+
+    final Uri mailtoUri = Uri(
       scheme: 'mailto',
-      path: 'felipegallitoandres@gmail.com',
+      path: 'daniel@email.com',
       query: Uri.encodeFull('subject=Opinión sobre Cielo Móvil&body=$body'),
     );
 
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
-    } else {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo abrir la app de correo.')),
-      );
+    try {
+      if (await canLaunchUrl(gmailUri)) {
+        await launchUrl(gmailUri, mode: LaunchMode.externalApplication);
+      } else if (await canLaunchUrl(mailtoUri)) {
+        await launchUrl(mailtoUri, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Sin app de correo disponible';
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text('No se pudo abrir la app de correo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Copia este texto y pégalo en tu correo manualmente:'),
+                SizedBox(height: 10),
+                SelectableText(body, style: TextStyle(fontSize: 12)),
+              ],
+            ),
+            actions: [
+              TextButton(
+                child: Text('Cerrar'),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+          ),
+        );
+      }
     }
   }
 
@@ -78,7 +106,6 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nombreController = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: Text('Acerca de')),
       body: Padding(
@@ -86,11 +113,12 @@ class _AboutScreenState extends State<AboutScreen> {
         child: ListView(
           children: [
             Text(
-              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Felipe Pérez\nContacto: felipegallitoandres@gmail.com',
+              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Daniel Arias\nContacto: daniel@email.com\n\n'
+              'Cielo Móvil es una app educativa que te muestra el cielo visible desde tu ubicación usando sensores y GPS. '
+              'Puedes registrar tus observaciones y enviar tu opinión.',
               style: TextStyle(fontSize: 16),
             ),
-            Divider(height: 30),
-            Text('⭐ Valora tu experiencia:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
             TextField(
               controller: nombreController,
               decoration: InputDecoration(
@@ -99,6 +127,10 @@ class _AboutScreenState extends State<AboutScreen> {
               ),
             ),
             SizedBox(height: 20),
+            Text(
+              '⭐ Valora tu experiencia:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             ...List.generate(preguntas.length, (i) => buildPregunta(i)),
             SizedBox(height: 20),
             ElevatedButton.icon(
