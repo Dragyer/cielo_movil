@@ -25,6 +25,11 @@ Fue desarrollada como prototipo funcional para el curso *Programación de Dispos
 
 ---
 
+## Link de la aplicacion
+
+https://drive.google.com/file/d/1eUxmzS_v0eJ8fHe4kvGaNIE9vExqTfAA/view?usp=sharing
+
+---
 ##  Capturas de pantalla
 
 
