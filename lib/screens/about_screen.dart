@@ -42,11 +42,11 @@ class _AboutScreenState extends State<AboutScreen> {
         }).join('\n')}";
 
     final Uri gmailUri = Uri.parse(
-        "googlegmail:///co?to=daniel@email.com&subject=Opinión sobre Cielo Móvil&body=${Uri.encodeComponent(body)}");
+        "googlegmail:///co?to=felipegallitoandres@gmail.com&subject=Opinión sobre Cielo Móvil&body=${Uri.encodeComponent(body)}");
 
     final Uri mailtoUri = Uri(
       scheme: 'mailto',
-      path: 'daniel@email.com',
+      path: 'felipegallitoandres@gmail.com',
       query: Uri.encodeFull('subject=Opinión sobre Cielo Móvil&body=$body'),
     );
 
@@ -113,7 +113,7 @@ class _AboutScreenState extends State<AboutScreen> {
         child: ListView(
           children: [
             Text(
-              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Daniel Arias\nContacto: daniel@email.com\n\n'
+              '📱 Cielo Móvil\nVersión 1.0\nDesarrollador: Felipe Perez \nContacto: felipegallitoandres@gmail.com\n\n'
               'Cielo Móvil es una app educativa que te muestra el cielo visible desde tu ubicación usando sensores y GPS. '
               'Puedes registrar tus observaciones y enviar tu opinión.',
               style: TextStyle(fontSize: 16),
